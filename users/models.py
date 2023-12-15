@@ -10,7 +10,7 @@ class User(AbstractUser):
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     email = models.EmailField(unique=True, blank=False, null=False)
     
-    USERNAME_FIELD = "email"  # ele usa por padrão o username
+    USERNAME_FIELD = "email"  # default is username
     REQUIRED_FIELDS = ['username'] 
 
     def __str__(self):
