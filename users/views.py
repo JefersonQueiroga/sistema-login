@@ -3,7 +3,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .decorators import group_required
+from rolepermissions.decorators import has_permission_decorator
+
+@has_permission_decorator('nome_da_permissao')
+def minha_view(request, *args, **kwargs):
+    # Lógica da sua view
+    ...
 
 def login_view(request):
     if request.method == 'POST':
@@ -30,6 +35,13 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-@group_required(['ADMINISTRADOR'])
 def index(request):
     return render(request, 'users/index.html')
+
+@has_permission_decorator(['ADMINISTRADOR','GERENTE'])
+def tela_admin(request):
+    return render(request, 'users/admin.html')
+
+@has_permission_decorator('gerente')
+def tela_comum(request):
+    return render(request, 'users/comum.html')

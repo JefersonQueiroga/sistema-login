@@ -1,0 +1,2 @@
+Comando para atualzizar as roles
+python manage.py sync_roles
